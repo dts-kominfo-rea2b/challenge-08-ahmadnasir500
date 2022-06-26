@@ -4,38 +4,61 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Challenge - DOM</title>
   </head>
   <body>
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
+      <h1 id="todo-title">To-Do List</h1>
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
+      <h1 id="todo-subtitle">"Today I need to..."</h1>
       <!-- Section: input -->
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
+      <input type="text" placeholder="Input here" id="todo-input">
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
-
+      <div class="button">
+        <button id="todo-submit">Submit</button>
+    </div>
       <!-- Section output -->
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
+      <ul id="todo-output">
+
+      </ul>
     </div>
 
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
-
+      let button = document.getElementById('todo-submit');;
+      let input = document.getElementById('todo-input');
+      let output = document.getElementById('todo-output');
+      let result = "";
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+      function fnClickHandler(toDoItem,e) {
+        console.log(toDoItem);
+        if (toDoItem.target.type === "submit" || toDoItem.key === "Enter") {
+                console.log(result)
+                var node = document.createElement('li');
+                node.appendChild(document.createTextNode(result));
+                document.querySelector('ul').appendChild(node);
+                input.value = ""; //reset input
+                result = ""; //reset akumulasi
+        }
+      }
+      function akumulasiData(valueKey) {
+        result = valueKey.target.value
+      }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener('click', fnClickHandler)
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      input.addEventListener('keypress', fnClickHandler)
+      input.addEventListener('keyup', akumulasiData)
     </script>
   </body>
 </html>
